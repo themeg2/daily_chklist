@@ -123,7 +123,7 @@ function parseScheduleText(text) {
     };
 }
 
-// 스케줄 목록 렌더링 함수 - 모바일 최적화 개선
+// 스케줄 목록 렌더링 함수 (모바일 최적화)
 function renderSchedules() {
     scheduleBody.innerHTML = '';
     
@@ -147,12 +147,12 @@ function renderSchedules() {
         // 주소를 모바일에서도 잘 표시되도록 처리
         const address = schedule.address || '';
         
-        // 모바일 환경에서 레이블 추가 및 내용 표시 방식 개선
+        // 모바일에서 텍스트가 겹치지 않도록 각 셀에 span 컨테이너 추가
         row.innerHTML = `
-            <td data-label="날짜">${schedule.date}</td>
-            <td data-label="전화번호">${formatPhoneNumber(schedule.phoneNumber)}</td>
-            <td data-label="고객관리번호">${schedule.customerCode}</td>
-            <td data-label="주소">${address}</td>
+            <td data-label="날짜"><span>${schedule.date || ''}</span></td>
+            <td data-label="전화번호"><span>${formatPhoneNumber(schedule.phoneNumber) || ''}</span></td>
+            <td data-label="고객관리번호"><span>${schedule.customerCode || ''}</span></td>
+            <td data-label="주소"><span>${address}</span></td>
             <td data-label="작업 상태">
                 <select class="status-select" data-index="${actualIndex}">
                     ${Object.entries(STATUS_TYPES).map(([value, label]) => 

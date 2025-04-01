@@ -262,7 +262,6 @@ th {
     }
 }
 
-
 /* 모바일에서 테이블을 카드 형태로 변환하는 CSS */
 @media (max-width: 767px) {
   /* 테이블 기본 설정 변경 */
@@ -337,4 +336,87 @@ th {
   tr.status-3 { border-left-color: #faad14; }
   tr.status-4 { border-left-color: #52c41a; }
   tr.status-5 { border-left-color: #bfbfbf; }
+}
+
+/* 모바일 테이블 뷰 추가 최적화 */
+@media (max-width: 767px) {
+  /* 테이블 기본 설정 조정 */
+  .schedule-list {
+    overflow-x: visible;
+  }
+  
+  table {
+    width: 100%;
+    min-width: unset;
+    table-layout: fixed;
+    font-size: 0.85rem;
+  }
+  
+  /* 컬럼 너비 최적화 */
+  th:nth-child(1), td:nth-child(1) {
+    width: 20%;
+  }
+  th:nth-child(2), td:nth-child(2) {
+    width: 20%;
+  }
+  th:nth-child(3), td:nth-child(3) {
+    width: 20%;
+  }
+  th:nth-child(4), td:nth-child(4) {
+    width: 40%;
+  }
+  
+  /* 카드 형태 스타일 추가 향상 */
+  tr {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  td {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    white-space: normal;
+    border-bottom: 1px solid #eee;
+    word-break: break-word;
+  }
+  
+  td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    flex: 0 0 40%;
+    text-align: left;
+  }
+  
+  td > *:not(:first-child) {
+    flex: 0 0 55%;
+    text-align: right;
+  }
+  
+  /* 상태 및 액션 버튼 개선 */
+  td[data-label="작업 상태"] {
+    display: flex;
+    align-items: center;
+  }
+  
+  td[data-label="작업 상태"] .status-select {
+    flex: 0 0 55%;
+    margin-left: auto;
+  }
+  
+  td[data-label="액션"] {
+    display: flex;
+    align-items: center;
+  }
+  
+  td[data-label="액션"] .delete-btn {
+    flex: 0 0 55%;
+    margin-left: auto;
+  }
 }

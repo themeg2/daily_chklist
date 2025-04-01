@@ -261,3 +261,80 @@ th {
         margin-top: -30px;
     }
 }
+
+
+/* 모바일에서 테이블을 카드 형태로 변환하는 CSS */
+@media (max-width: 767px) {
+  /* 테이블 기본 설정 변경 */
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  
+  /* 테이블 헤더 숨기기 */
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  
+  /* 각 행을 카드처럼 만들기 */
+  tr {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  /* 모든 셀에 패딩과 위치 지정 */
+  td {
+    position: relative;
+    padding: 10px 10px 10px 50%;
+    border: none;
+    border-bottom: 1px solid #eee;
+    white-space: normal;
+    text-align: left;
+    min-height: 30px;
+  }
+  
+  /* 마지막 셀의 border 제거 */
+  tr td:last-child {
+    border-bottom: 0;
+  }
+  
+  /* 각 셀에 라벨 추가 */
+  td:before {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    font-weight: bold;
+    content: attr(data-label);
+  }
+  
+  /* 상태 선택 드롭다운 전체 너비로 */
+  .status-select {
+    width: 100%;
+    margin-top: 5px;
+  }
+  
+  /* 삭제 버튼 전체 너비로 */
+  .delete-btn {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+  }
+  
+  /* 상태별 배경색을 행 전체에 적용 */
+  tr.status-1, tr.status-2, tr.status-3, tr.status-4, tr.status-5 {
+    border-left: 5px solid;
+  }
+  
+  tr.status-1 { border-left-color: #1890ff; }
+  tr.status-2 { border-left-color: #f759ab; }
+  tr.status-3 { border-left-color: #faad14; }
+  tr.status-4 { border-left-color: #52c41a; }
+  tr.status-5 { border-left-color: #bfbfbf; }
+}

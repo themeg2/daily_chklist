@@ -93,36 +93,6 @@ importFile.addEventListener('change', (e) => {
     }
 });
 
-// 스케줄 텍스트 파싱 함수
-function parseScheduleText(text) {
-    // 예시: 01029747002☏9_9549 00:00기장군.정관로350 이지더원3차아파트 309동 102호♡고객방문요청데탑,전화먼저
-    
-    // 전화번호와 고객관리번호 파싱
-    const phoneRegex = /(\d{10,11})☏(\S+)/;
-    const phoneMatch = text.match(phoneRegex);
-    
-    if (!phoneMatch) return null;
-    
-    const phoneNumber = phoneMatch[1];
-    const customerCode = phoneMatch[2];
-    
-    // 주소 파싱 (☏ 다음부터 ♡ 이전까지)
-    const addressStartIndex = text.indexOf('☏') + phoneMatch[2].length + 1;
-    let addressEndIndex = text.indexOf('♡');
-    if (addressEndIndex === -1) addressEndIndex = text.length;
-    
-    const fullAddressText = text.substring(addressStartIndex, addressEndIndex).trim();
-    
-    // 시간 제거 (00:00 패턴)
-    const address = fullAddressText.replace(/\d{2}:\d{2}/, '').trim();
-    
-    return {
-        phoneNumber,
-        customerCode,
-        address
-    };
-}
-
 // 스케줄 목록 렌더링 함수
 function renderSchedules() {
     scheduleBody.innerHTML = '';
@@ -136,19 +106,20 @@ function renderSchedules() {
         const row = document.createElement('tr');
         row.className = `status-${schedule.status}`;
         
+        // 모바일 환경에서 레이블 추가를 위해 data-label 속성 사용
         row.innerHTML = `
-            <td title="${schedule.date}">${schedule.date}</td>
-            <td title="${formatPhoneNumber(schedule.phoneNumber)}">${formatPhoneNumber(schedule.phoneNumber)}</td>
-            <td title="${schedule.customerCode}">${schedule.customerCode}</td>
-            <td title="${schedule.address}">${schedule.address}</td>
-            <td>
+            <td data-label="날짜">${schedule.date}</td>
+            <td data-label="전화번호">${formatPhoneNumber(schedule.phoneNumber)}</td>
+            <td data-label="고객관리번호">${schedule.customerCode}</td>
+            <td data-label="주소">${schedule.address}</td>
+            <td data-label="작업 상태">
                 <select class="status-select" data-index="${actualIndex}">
                     ${Object.entries(STATUS_TYPES).map(([value, label]) => 
                         `<option value="${value}" ${schedule.status == value ? 'selected' : ''}>${label}</option>`
                     ).join('')}
                 </select>
             </td>
-            <td>
+            <td data-label="액션">
                 <button class="delete-btn" data-index="${actualIndex}">삭제</button>
             </td>
         `;

@@ -338,18 +338,21 @@ th {
   tr.status-5 { border-left-color: #bfbfbf; }
 }
 
-/* 모바일 전용 스타일 - 기존 모바일 스타일을 완전히 대체합니다 */
+/* 모바일에서 스케줄 목록 카드 레이아웃 조정 */
 @media (max-width: 767px) {
-  /* 테이블 관련 기본 스타일 재설정 */
+  /* 테이블 기본 스타일 조정 */
   .schedule-list {
-    overflow: visible;
-    max-height: none;
+    overflow-x: hidden;
+    max-width: 100%;
+    padding: 0;
   }
   
-  /* 테이블을 블록 요소로 변경하여 기본 테이블 레이아웃 해제 */
-  #scheduleTable, #scheduleTable tbody {
-    display: block;
+  /* 테이블 전체 너비 제한 */
+  #scheduleTable {
     width: 100%;
+    max-width: 100%;
+    table-layout: fixed;
+    font-size: 0.9rem;
   }
   
   /* 테이블 헤더 숨기기 */
@@ -357,89 +360,97 @@ th {
     display: none;
   }
   
-  /* 각 행을 카드형 디자인으로 표시 */
+  /* 행을 카드 형태로 변환 */
   #scheduleTable tr {
     display: block;
-    margin-bottom: 16px;
-    background-color: #f8fcff;
+    margin-bottom: 12px;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
+    background-color: #fff;
     overflow: hidden;
-    border: 1px solid #e1e1e1;
   }
   
-  /* 상태별 상단 테두리 색상 */
-  #scheduleTable tr.status-1 {
-    border-top: 4px solid #1890ff;
-  }
+  /* 상태별 테두리 색상 */
+  #scheduleTable tr.status-1 { border-top: 3px solid #1890ff; }
+  #scheduleTable tr.status-2 { border-top: 3px solid #f759ab; }
+  #scheduleTable tr.status-3 { border-top: 3px solid #faad14; }
+  #scheduleTable tr.status-4 { border-top: 3px solid #52c41a; }
+  #scheduleTable tr.status-5 { border-top: 3px solid #bfbfbf; }
   
-  #scheduleTable tr.status-2 {
-    border-top: 4px solid #f759ab;
-  }
-  
-  #scheduleTable tr.status-3 {
-    border-top: 4px solid #faad14;
-  }
-  
-  #scheduleTable tr.status-4 {
-    border-top: 4px solid #52c41a;
-  }
-  
-  #scheduleTable tr.status-5 {
-    border-top: 4px solid #bfbfbf;
-  }
-  
-  /* 각 셀을 수직으로 정렬 */
+  /* 각 셀 스타일 */
   #scheduleTable td {
     display: flex;
-    padding: 10px 15px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
     border: none;
     border-bottom: 1px solid #eee;
-    align-items: center;
-    text-align: left;
+    text-align: right;
     width: 100%;
     box-sizing: border-box;
+    min-height: 40px;
+    font-size: 0.85rem;
   }
   
-  /* 마지막 셀의 하단 테두리 제거 */
+  /* 마지막 셀 테두리 제거 */
   #scheduleTable td:last-child {
     border-bottom: none;
   }
   
-  /* 라벨 텍스트 스타일 */
+  /* 라벨 스타일 */
   #scheduleTable td:before {
     content: attr(data-label);
     font-weight: bold;
-    flex: 1;
-    min-width: 100px;
-    max-width: 40%;
+    float: left;
+    text-align: left;
+    padding-right: 5px;
+    font-size: 0.85rem;
   }
   
-  /* 셀 내용 스타일 */
+  /* 컨텐츠 스타일 */
   #scheduleTable td span {
-    flex: 2;
     text-align: right;
-    word-break: break-word;
+    word-break: break-all;
+    font-size: 0.85rem;
   }
   
-  /* 상태 선택 드롭다운 스타일 */
+  /* 주소 셀 높이 자동 조절 */
+  #scheduleTable td[data-label="주소"] {
+    min-height: 40px;
+    height: auto;
+  }
+  
+  /* 작업 상태 드롭다운 */
   .status-select {
-    flex: 2 !important;
-    height: 38px;
-    text-align: right;
-    width: 60% !important;
+    width: 60%;
+    max-width: 120px;
+    height: 32px;
+    padding: 2px 5px;
+    font-size: 0.85rem;
+    margin-left: auto;
   }
   
-  /* 삭제 버튼 스타일 */
+  /* 삭제 버튼 */
   .delete-btn {
-    flex: 2 !important;
-    height: 38px;
-    margin: 0;
-    width: 60% !important;
+    width: 60%;
+    max-width: 120px;
+    height: 32px;
+    padding: 2px 5px;
+    font-size: 0.85rem;
+    margin-left: auto;
   }
   
-  /* 테이블 내용 영역 좌우 패딩 추가 */
-  .card {
-    padding: 10px;
+  /* 작업 상태 컨테이너 조절 */
+  #scheduleTable td[data-label="작업 상태"] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* 액션 컨테이너 조절 */
+  #scheduleTable td[data-label="액션"] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }

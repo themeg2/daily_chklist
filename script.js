@@ -1,5 +1,5 @@
 // 스케줄 데이터 저장 배열
-let schedules = JSON.parse(localStorage.getItem('schedules')) || [];
+let schedules = [];
 
 // 상태 정의
 const STATUS_TYPES = {
@@ -24,9 +24,54 @@ let statusChart;
 
 // 페이지 로드 시 데이터 렌더링
 document.addEventListener('DOMContentLoaded', () => {
-    renderSchedules();
-    updateStats();
+    loadSchedulesFromServer();
 });
+
+// 서버에서 데이터 불러오기
+async function loadSchedulesFromServer() {
+    try {
+        const response = await fetch('/api/schedules');
+        if (response.ok) {
+            schedules = await response.json();
+            renderSchedules();
+            updateStats();
+        } else {
+            console.error('서버 데이터 불러오기 실패');
+            // 로컬 저장소에서 폴백 데이터 불러오기
+            schedules = JSON.parse(localStorage.getItem('schedules')) || [];
+            renderSchedules();
+            updateStats();
+        }
+    } catch (error) {
+        console.error('서버 데이터 로딩 실패:', error);
+        // 로컬 저장소에서 폴백 데이터 불러오기
+        schedules = JSON.parse(localStorage.getItem('schedules')) || [];
+        renderSchedules();
+        updateStats();
+    }
+}
+
+// 서버에 데이터 저장하기
+async function saveSchedulesToServer() {
+    try {
+        const response = await fetch('/api/schedules', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(schedules),
+        });
+        
+        if (!response.ok) {
+            console.error('서버 데이터 저장 실패');
+        }
+    } catch (error) {
+        console.error('서버 데이터 저장 오류:', error);
+    }
+    
+    // 로컬 저장소에도 백업으로 저장
+    localStorage.setItem('schedules', JSON.stringify(schedules));
+}
 
 // 스케줄 추가 버튼 이벤트
 addScheduleBtn.addEventListener('click', () => {
@@ -287,5 +332,6 @@ function updateStats() {
 
 // 로컬 스토리지에 데이터 저장
 function saveSchedules() {
+    saveSchedulesToServer();
     localStorage.setItem('schedules', JSON.stringify(schedules));
 }

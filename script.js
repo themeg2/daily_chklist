@@ -192,7 +192,7 @@ function renderSchedules() {
         // 주소를 모바일에서도 잘 표시되도록 처리
         const address = schedule.address || '';
         
-        // 모바일에서 텍스트가 겹치지 않도록 각 셀에 span 컨테이너 추가
+        // 모바일에서 텍스트가 겹치지 않도록 수정된 레이아웃
         row.innerHTML = `
             <td data-label="날짜"><span>${schedule.date || ''}</span></td>
             <td data-label="전화번호"><span>${formatPhoneNumber(schedule.phoneNumber) || ''}</span></td>

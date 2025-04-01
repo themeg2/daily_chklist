@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>출장 수리기사 일일 실적 관리</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>출장 수리기사 일일 실적 관리</h1>
+    </header>
+    
+    <div class="container">
+        <div class="card input-form">
+            <h2>스케줄 추가</h2>
+            <textarea id="scheduleInput" placeholder="예: 01029747002☏9_9549 00:00기장군.정관로350 이지더원3차아파트 309동 102호♡고객방문요청데탑,전화먼저"></textarea>
+            <button id="addScheduleBtn">스케줄 추가</button>
+            
+            <div class="export-import">
+                <button id="exportBtn" class="export-btn">데이터 내보내기</button>
+                <button id="importBtn" class="import-btn">데이터 가져오기</button>
+                <input type="file" id="importFile" style="display: none;">
+            </div>
+        </div>
+        
+        <div class="card stats">
+            <h2>실적 통계</h2>
+            <div class="chart-container">
+                <canvas id="statusChart"></canvas>
+            </div>
+            <div id="statsText"></div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2>스케줄 목록</h2>
+        <div class="schedule-list">
+            <table id="scheduleTable">
+                <colgroup>
+                    <col width="12%"> <!-- 날짜 -->
+                    <col width="15%"> <!-- 전화번호 -->
+                    <col width="12%"> <!-- 고객관리번호 -->
+                    <col width="40%"> <!-- 주소 -->
+                    <col width="12%"> <!-- 작업 상태 -->
+                    <col width="9%"> <!-- 액션 -->
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>날짜</th>
+                        <th>전화번호</th>
+                        <th>고객관리번호</th>
+                        <th>주소</th>
+                        <th>작업 상태</th>
+                        <th>액션</th>
+                    </tr>
+                </thead>
+                <tbody id="scheduleBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+/* 기본 스타일 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    margin: 15px 0;
+}
+
+h1, h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 1.8rem;
+}
+
+h2 {
+    font-size: 1.4rem;
+}
+
+/* 컨테이너 레이아웃 */
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+/* 입력 폼 스타일 */
+.input-form, .stats {
+    width: 100%;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+    font-size: 16px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* 내보내기/가져오기 버튼 */
+.export-import {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.export-btn, .import-btn {
+    background-color: #2196F3;
+}
+
+.export-btn:hover, .import-btn:hover {
+    background-color: #0b7dda;
+}
+
+/* 테이블 스타일 */
+.schedule-list {
+    overflow-x: auto;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+    table-layout: fixed;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 컬럼 너비 설정 */
+th:nth-child(1), td:nth-child(1) {
+    width: 12%; /* 날짜 */
+}
+th:nth-child(2), td:nth-child(2) {
+    width: 15%; /* 전화번호 */
+}
+th:nth-child(3), td:nth-child(3) {
+    width: 12%; /* 고객관리번호 */
+}
+th:nth-child(4), td:nth-child(4) {
+    width: 40%; /* 주소 */
+}
+th:nth-child(5), td:nth-child(5) {
+    width: 12%; /* 작업 상태 */
+}
+th:nth-child(6), td:nth-child(6) {
+    width: 9%; /* 액션 */
+}
+
+th {
+    background-color: #f2f2f2;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+/* 상태별 배경색 */
+.status-1 { background-color: #e6f7ff; }
+.status-2 { background-color: #fff0f6; }
+.status-3 { background-color: #fffbe6; }
+.status-4 { background-color: #f6ffed; }
+.status-5 { background-color: #f5f5f5; }
+
+/* 상태 선택 드롭다운 */
+.status-select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    width: 100%;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 삭제 버튼 */
+.delete-btn {
+    background-color: #f44336;
+    margin: 0;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* 차트 컨테이너 */
+.chart-container {
+    width: 100%;
+    height: 250px;
+    margin: 15px 0;
+}
+
+/* 통계 텍스트 */
+#statsText ul {
+    list-style-type: none;
+    padding-left: 10px;
+}
+
+#statsText li {
+    margin-bottom: 5px;
+}
+
+/* 태블릿 이상의 화면 */
+@media (min-width: 768px) {
+    body {
+        max-width: 1200px;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    .container {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .input-form, .stats {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    .export-import {
+        flex-direction: row;
+    }
+
+    button {
+        width: auto;
+    }
+
+    th, td {
+        padding: 12px;
+        font-size: 16px;
+    }
+}
+
+/* 데스크탑 화면 */
+@media (min-width: 1024px) {
+    .chart-container {
+        height: 300px;
+    }
+
+    .schedule-list {
+        max-height: 500px;
+    }
+    
+    /* 데스크탑에서는 호버 시 툴팁 제공 */
+    td[title]:hover::after {
+        content: attr(title);
+        position: absolute;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-size: 14px;
+        white-space: normal;
+        max-width: 300px;
+        z-index: 100;
+        margin-top: -30px;
+    }
+}

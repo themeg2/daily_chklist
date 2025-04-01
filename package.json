@@ -1,0 +1,11 @@
+{
+  "name": "daily-chklist",
+  "version": "1.0.0",
+  "description": "일일 실적 관리 앱",
+  "main": "index.js",
+  "dependencies": {
+    "redis": "^4.6.7",
+    // 기존에 있던 다른 의존성들...
+  },
+  // 기존 파일의 나머지 부분...
+}

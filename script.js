@@ -170,6 +170,7 @@ function parseScheduleText(text) {
 
 // 스케줄 목록 렌더링 함수 (모바일 최적화)
 function renderSchedules() {
+    // 테이블 내용 비우기
     scheduleBody.innerHTML = '';
     
     // 데이터가 없는 경우 메시지 표시
@@ -183,20 +184,25 @@ function renderSchedules() {
     // 최신 데이터가 위에 표시되도록 역순으로 정렬
     const sortedSchedules = [...schedules].reverse();
     
+    // 각 스케줄 항목 렌더링
     sortedSchedules.forEach((schedule, index) => {
         const actualIndex = schedules.length - 1 - index; // 원래 배열에서의 인덱스
         
+        // 새로운 행 요소 생성
         const row = document.createElement('tr');
         row.className = `status-${schedule.status}`;
         
-        // 주소를 모바일에서도 잘 표시되도록 처리
+        // 필드 데이터 준비
+        const date = schedule.date || '';
+        const phoneNumber = formatPhoneNumber(schedule.phoneNumber) || '';
+        const customerCode = schedule.customerCode || '';
         const address = schedule.address || '';
         
-        // 모바일에서 텍스트가 겹치지 않도록 각 셀에 데이터 라벨 추가
+        // HTML 템플릿 작성 (모바일 친화적인 레이아웃)
         row.innerHTML = `
-            <td data-label="날짜"><span>${schedule.date || ''}</span></td>
-            <td data-label="전화번호"><span>${formatPhoneNumber(schedule.phoneNumber) || ''}</span></td>
-            <td data-label="고객관리번호"><span>${schedule.customerCode || ''}</span></td>
+            <td data-label="날짜"><span>${date}</span></td>
+            <td data-label="전화번호"><span>${phoneNumber}</span></td>
+            <td data-label="고객관리번호"><span>${customerCode}</span></td>
             <td data-label="주소"><span>${address}</span></td>
             <td data-label="작업 상태">
                 <select class="status-select" data-index="${actualIndex}">
@@ -210,6 +216,7 @@ function renderSchedules() {
             </td>
         `;
         
+        // 테이블에 행 추가
         scheduleBody.appendChild(row);
     });
     

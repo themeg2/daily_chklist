@@ -1,3 +1,4 @@
+// api/schedules.js
 import { createClient } from 'redis';
 
 // Redis 클라이언트 생성
@@ -24,7 +25,7 @@ export default async function handler(req, res) {
       return res.status(200).json(schedules);
     } catch (error) {
       console.error('Redis GET error:', error);
-      return res.status(500).json({ error: 'Failed to fetch data' });
+      return res.status(500).json({ error: 'Failed to fetch data', details: error.message });
     }
   } 
   else if (req.method === 'POST') {
@@ -37,7 +38,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ success: true });
     } catch (error) {
       console.error('Redis SET error:', error);
-      return res.status(500).json({ error: 'Failed to save data' });
+      return res.status(500).json({ error: 'Failed to save data', details: error.message });
     }
   }
   

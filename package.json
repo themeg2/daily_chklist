@@ -1,8 +1,8 @@
 {
   "name": "daily-chklist",
   "version": "1.0.0",
-  "description": "일일 실적 관리 앱",
-  "main": "index.js",
+  "description": "일일 실적 관리 웹앱",
+  "private": true,
   "dependencies": {
     "redis": "^4.6.7"
   }
